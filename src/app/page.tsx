@@ -1,70 +1,101 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
-  
+import { useRouter } from "next/navigation";
+import { Radio, ArrowRight, ShieldCheck, Zap, Terminal } from "lucide-react";
+
+export default function HomePage() {
+  const router = useRouter();
+
+  const createNewBox = () => {
+    // Generate a clean, random 8-character bucket identifier
+    const randomId = Math.random().toString(36).substring(2, 10);
+    router.push(`/inspect/${randomId}`);
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col justify-between selection:bg-emerald-500 selection:text-black">
+      {/* Navbar */}
+      <header className="px-8 py-6 flex items-center justify-between border-b border-neutral-900">
+        <div className="flex items-center gap-2.5">
+          <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
+            <Radio className="w-5 h-5 animate-pulse" />
+          </div>
+          <span className="font-semibold tracking-wide text-sm uppercase text-neutral-300">
+            Webhook Inspector
+          </span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <a
+          href="https://github.com/ShashankJha2003/webhook-inspector"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs text-neutral-400 hover:text-white transition-colors"
+        >
+          GitHub Repository ↗
+        </a>
+      </header>
+
+      {/* Hero Section */}
+      <section className="flex flex-col items-center justify-center text-center px-6 py-20 max-w-3xl mx-auto">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono mb-8">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+          Live Real-Time SSE Pipeline
         </div>
-      </main>
-    </div>
+
+        <h1 className="text-4xl sm:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-b from-white via-neutral-200 to-neutral-500 bg-clip-text text-transparent">
+          Inspect, debug, and replay webhooks instantly.
+        </h1>
+
+        <p className="text-sm sm:text-base text-neutral-400 max-w-xl mb-10 leading-relaxed">
+          Generate an instant HTTP endpoint to catch webhooks from Stripe, GitHub, or any external service. Inspect JSON bodies, inspect headers, and replay requests directly from your terminal.
+        </p>
+
+        <button
+          onClick={createNewBox}
+          className="flex items-center gap-2 px-6 py-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-medium text-sm transition-all shadow-lg shadow-emerald-500/20 hover:scale-[1.02] active:scale-[0.98]"
+        >
+          <span>Create New Webhook URL</span>
+          <ArrowRight className="w-4 h-4" />
+        </button>
+      </section>
+
+      {/* Feature Badges */}
+      <footer className="grid grid-cols-1 md:grid-cols-3 border-t border-neutral-900 bg-neutral-900/30">
+        <div className="p-6 border-b md:border-b-0 md:border-r border-neutral-900 flex items-start gap-4">
+          <div className="p-2 rounded bg-neutral-900 border border-neutral-800 text-neutral-300">
+            <Zap className="w-4 h-4 text-emerald-400" />
+          </div>
+          <div>
+            <h2 className="text-xs font-semibold text-neutral-200 mb-1">Zero Latency Streaming</h2>
+            <p className="text-xs text-neutral-500 leading-normal">
+              Built on Server-Sent Events (SSE) to display incoming payloads immediately without polling.
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 border-b md:border-b-0 md:border-r border-neutral-900 flex items-start gap-4">
+          <div className="p-2 rounded bg-neutral-900 border border-neutral-800 text-neutral-300">
+            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          </div>
+          <div>
+            <h2 className="text-xs font-semibold text-neutral-200 mb-1">Persistent PostgreSQL Storage</h2>
+            <p className="text-xs text-neutral-500 leading-normal">
+              Payloads, query parameters, and raw headers are stored safely in a relational Neon database.
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 flex items-start gap-4">
+          <div className="p-2 rounded bg-neutral-900 border border-neutral-800 text-neutral-300">
+            <Terminal className="w-4 h-4 text-emerald-400" />
+          </div>
+          <div>
+            <h2 className="text-xs font-semibold text-neutral-200 mb-1">One-Click cURL Generator</h2>
+            <p className="text-xs text-neutral-500 leading-normal">
+              Replay any captured HTTP request against your local dev server with auto-generated cURL syntax.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </main>
   );
 }
