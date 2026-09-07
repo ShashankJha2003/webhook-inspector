@@ -49,8 +49,30 @@ export default function InspectorPage({
     }
   };
 
-  useEffect(() => {
+useEffect(() => {
+    // 1. Initial baseline fetch for historic events
     fetchEvents();
+
+    // 2. Open live Server-Sent Events stream
+    const eventSource = new EventSource(`/api/events/${endpointId}/sse`);
+
+    eventSource.onmessage = (e) => {
+      try {
+        const newEvent: WebhookEvent = JSON.parse(e.data);
+        setEvents((prev) => [newEvent, ...prev]);
+        setSelectedEvent((prev) => prev ?? newEvent);
+      } catch (err) {
+        console.error("Failed to parse incoming SSE payload:", err);
+      }
+    };
+
+    eventSource.onerror = (err) => {
+      console.error("SSE connection error:", err);
+    };
+
+    return () => {
+      eventSource.close();
+    };
   }, [endpointId]);
 
   const copyToClipboard = () => {

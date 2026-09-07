@@ -1,3 +1,4 @@
+import { eventEmitter } from "@/lib/events";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
@@ -51,6 +52,8 @@ export async function POST(
         ipAddress: req.headers.get("x-forwarded-for") || "127.0.0.1",
       },
     });
+
+    eventEmitter.emit(`event:${endpointId}`, savedEvent);
 
     // 6. Return a success confirmation
     return NextResponse.json(
