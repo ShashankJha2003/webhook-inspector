@@ -1,0 +1,31 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Endpoint {
+  id        String         @id @default(uuid())
+  name      String?        @default("Default Webhook")
+  createdAt DateTime       @default(now())
+  events    WebhookEvent[]
+}
+
+model WebhookEvent {
+  id          String   @id @default(uuid())
+  endpointId  String
+  endpoint    Endpoint @relation(fields: [endpointId], references: [id], onDelete: Cascade)
+  
+  method      String   // POST, GET, PUT, etc.
+  headers     Json     // Captured request headers
+  queryParams Json?    // Query params if present
+  body        Json?    // Parsed JSON body
+  rawBody     String?  // Raw text fallback
+  ipAddress   String?
+  createdAt   DateTime @default(now())
+
+  @@index([endpointId])
+}
