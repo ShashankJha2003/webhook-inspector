@@ -30,25 +30,32 @@ A real-time webhook inspection, debugging, and testing platform built with Next.
 ## Local Development Setup
 
 1. **Clone the repository:**
+
    ```bash
    git clone [https://github.com/ShashankJha2003/webhook-inspector.git](https://github.com/ShashankJha2003/webhook-inspector.git)
    cd webhook-inspector
+   ```
 
 2. **Install dependencies:**
 
-    npm install
+   ```bash
+   npm install
+   ```
 
 3. **Configure Environment Variables:**
-    
-    Create a .env file in the root directory:
+   Create a `.env` file in the root directory:
 
-    DATABASE_URL="your-neon-postgresql-connection-string"
+   ```env
+   DATABASE_URL="your-neon-postgresql-connection-string"
+   ```
 
 4. **Sync Prisma schema:**
 
-    npx prisma db push
+   ```bash
+   npx prisma db push
+   ```
 
 5. **Start development server:**
-
-    npm run dev
-
+   ```bash
+   npm run dev
+   ```
