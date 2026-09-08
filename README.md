@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⚡ Webhook Inspector
 
-## Getting Started
+A real-time webhook inspection, debugging, and testing platform built with Next.js, Prisma ORM, and Neon Serverless PostgreSQL.
 
-First, run the development server:
+🔗 **Live Deployment:** [webhook-inspector-shashank.vercel.app](https://webhook-inspector-shashank.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Dynamic Bucket Provisioning:** Instantly generate disposable webhook capture endpoints without sign-up.
+- **Server-Sent Events (SSE):** Stream incoming requests directly to the browser dashboard with sub-second latency.
+- **Persistent Relational Storage:** Store and retrieve query parameters, nested JSON payloads, IP addresses, and HTTP headers in PostgreSQL.
+- **One-Click Replay:** Convert any captured request into ready-to-run `curl` commands to replicate workflows locally.
+- **Dark Mode Dashboard:** Monospace, developer-focused UI optimized for request inspection.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework:** Next.js (App Router)
+- **Database:** Neon (Serverless PostgreSQL)
+- **ORM:** Prisma v6
+- **Real-Time Streaming:** Server-Sent Events (SSE) via Web Streams API
+- **Styling:** Tailwind CSS & Lucide Icons
+- **Hosting:** Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Local Development Setup
 
-## Deploy on Vercel
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/ShashankJha2003/webhook-inspector.git](https://github.com/ShashankJha2003/webhook-inspector.git)
+   cd webhook-inspector
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Install dependencies:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    npm install
+
+3. **Configure Environment Variables:**
+    
+    Create a .env file in the root directory:
+
+    DATABASE_URL="your-neon-postgresql-connection-string"
+
+4. **Sync Prisma schema:**
+
+    npx prisma db push
+
+5. **Start development server:**
+
+    npm run dev
+
